@@ -1,0 +1,98 @@
+Name:               docker-desktop
+Roles:              control-plane
+Labels:             beta.kubernetes.io/arch=arm64
+                    beta.kubernetes.io/os=linux
+                    kubernetes.io/arch=arm64
+                    kubernetes.io/hostname=docker-desktop
+                    kubernetes.io/os=linux
+                    node-role.kubernetes.io/control-plane=
+                    node.kubernetes.io/exclude-from-external-load-balancers=
+Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: unix:///var/run/cri-dockerd.sock
+                    node.alpha.kubernetes.io/ttl: 0
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Mon, 08 Jan 2024 14:27:03 -0300
+Taints:             <none>
+Unschedulable:      false
+Lease:
+  HolderIdentity:  docker-desktop
+  AcquireTime:     <unset>
+  RenewTime:       Fri, 22 Mar 2024 09:49:45 -0300
+Conditions:
+  Type             Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----             ------  -----------------                 ------------------                ------                       -------
+  MemoryPressure   False   Fri, 22 Mar 2024 09:49:26 -0300   Mon, 08 Jan 2024 14:27:01 -0300   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure     False   Fri, 22 Mar 2024 09:49:26 -0300   Tue, 30 Jan 2024 14:09:05 -0300   KubeletHasNoDiskPressure     kubelet has no disk pressure
+  PIDPressure      False   Fri, 22 Mar 2024 09:49:26 -0300   Mon, 08 Jan 2024 14:27:01 -0300   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready            True    Fri, 22 Mar 2024 09:49:26 -0300   Mon, 08 Jan 2024 14:27:04 -0300   KubeletReady                 kubelet is posting ready status
+Addresses:
+  InternalIP:  192.168.65.3
+  Hostname:    docker-desktop
+Capacity:
+  cpu:                12
+  ephemeral-storage:  61202244Ki
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  hugepages-32Mi:     0
+  hugepages-64Ki:     0
+  memory:             8029108Ki
+  pods:               110
+Allocatable:
+  cpu:                12
+  ephemeral-storage:  56403987978
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  hugepages-32Mi:     0
+  hugepages-64Ki:     0
+  memory:             7926708Ki
+  pods:               110
+System Info:
+  Machine ID:                 ebb45b95-a37b-467c-961e-9edda94bb557
+  System UUID:                ebb45b95-a37b-467c-961e-9edda94bb557
+  Boot ID:                    bb1b46d3-a80e-4c05-b4f9-d68d0e319b33
+  Kernel Version:             6.6.12-linuxkit
+  OS Image:                   Docker Desktop
+  Operating System:           linux
+  Architecture:               arm64
+  Container Runtime Version:  docker://25.0.2
+  Kubelet Version:            v1.27.2
+  Kube-Proxy Version:         v1.27.2
+Non-terminated Pods:          (10 in total)
+  Namespace                   Name                                         CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                                         ------------  ----------  ---------------  -------------  ---
+  ingress-nginx               ingress-nginx-controller-679bdfb778-gfspv    100m (0%)     0 (0%)      90Mi (1%)        0 (0%)         66d
+  kube-system                 coredns-5d78c9869d-42mn9                     100m (0%)     0 (0%)      70Mi (0%)        170Mi (2%)     73d
+  kube-system                 coredns-5d78c9869d-jg2js                     100m (0%)     0 (0%)      70Mi (0%)        170Mi (2%)     73d
+  kube-system                 etcd-docker-desktop                          100m (0%)     0 (0%)      100Mi (1%)       0 (0%)         73d
+  kube-system                 kube-apiserver-docker-desktop                250m (2%)     0 (0%)      0 (0%)           0 (0%)         73d
+  kube-system                 kube-controller-manager-docker-desktop       200m (1%)     0 (0%)      0 (0%)           0 (0%)         73d
+  kube-system                 kube-proxy-p6452                             0 (0%)        0 (0%)      0 (0%)           0 (0%)         73d
+  kube-system                 kube-scheduler-docker-desktop                100m (0%)     0 (0%)      0 (0%)           0 (0%)         73d
+  kube-system                 storage-provisioner                          0 (0%)        0 (0%)      0 (0%)           0 (0%)         73d
+  kube-system                 vpnkit-controller                            0 (0%)        0 (0%)      0 (0%)           0 (0%)         73d
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests    Limits
+  --------           --------    ------
+  cpu                950m (7%)   0 (0%)
+  memory             330Mi (4%)  340Mi (4%)
+  ephemeral-storage  0 (0%)      0 (0%)
+  hugepages-1Gi      0 (0%)      0 (0%)
+  hugepages-2Mi      0 (0%)      0 (0%)
+  hugepages-32Mi     0 (0%)      0 (0%)
+  hugepages-64Ki     0 (0%)      0 (0%)
+Events:
+  Type     Reason                   Age                From        Message
+  ----     ------                   ----               ----        -------
+  Normal   Starting                 36d                kube-proxy
+  Normal   Starting                 88s                kube-proxy
+  Normal   NodeHasSufficientMemory  36d (x8 over 36d)  kubelet     Node docker-desktop status is now: NodeHasSufficientMemory
+  Normal   NodeHasNoDiskPressure    36d (x7 over 36d)  kubelet     Node docker-desktop status is now: NodeHasNoDiskPressure
+  Normal   NodeHasSufficientPID     36d (x7 over 36d)  kubelet     Node docker-desktop status is now: NodeHasSufficientPID
+  Normal   NodeAllocatableEnforced  36d                kubelet     Updated Node Allocatable limit across pods
+  Warning  InvalidDiskCapacity      36d                kubelet     invalid capacity 0 on image filesystem
+  Normal   Starting                 36d                kubelet     Starting kubelet.
+  Normal   Starting                 93s                kubelet     Starting kubelet.
+  Normal   NodeHasSufficientMemory  93s (x8 over 93s)  kubelet     Node docker-desktop status is now: NodeHasSufficientMemory
+  Normal   NodeHasNoDiskPressure    93s (x8 over 93s)  kubelet     Node docker-desktop status is now: NodeHasNoDiskPressure
+  Normal   NodeHasSufficientPID     93s (x7 over 93s)  kubelet     Node docker-desktop status is now: NodeHasSufficientPID
+  Normal   NodeAllocatableEnforced  93s                kubelet     Updated Node Allocatable limit across pods
