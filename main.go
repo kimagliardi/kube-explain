@@ -2,35 +2,18 @@ package main
 
 import (
 	"context"
-	"flag"
 	"fmt"
 	"os"
-	"path/filepath"
 
 	openai "github.com/sashabaranov/go-openai"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/client-go/kubernetes"
-	"k8s.io/client-go/tools/clientcmd"
-	"k8s.io/client-go/util/homedir"
+	utils "kimagliardi.github.com/kube-explain/pkg/k8s"
 )
 
 func main() {
-	var kubeconfig *string
-	if home := homedir.HomeDir(); home != "" {
-		kubeconfig = flag.String("kubeconfig", filepath.Join(home, ".kube", "config"), "(optional) absolute path to the kubeconfig file")
-	} else {
-		kubeconfig = flag.String("kubeconfig", "", "absolute path to the kubeconfig file")
-	}
-	flag.Parse()
-
-	// Use the current context in kubeconfig
-	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
-	if err != nil {
-		panic(err.Error())
-	}
 
 	// Create the clientset
-	clientset, err := kubernetes.NewForConfig(config)
+	clientset, err := utils.NewCLientSet()
 	if err != nil {
 		panic(err.Error())
 	}
