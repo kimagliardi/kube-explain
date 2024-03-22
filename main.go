@@ -4,8 +4,10 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"os"
 	"path/filepath"
 
+	openai "github.com/sashabaranov/go-openai"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
@@ -42,7 +44,7 @@ func main() {
 		panic(err.Error())
 	}
 
-	// Print the Node details
+	/* Print the Node details
 	fmt.Printf("Name: %s\n", node.Name)
 	fmt.Printf("UID: %s\n", node.UID)
 	fmt.Printf("CreationTimestamp: %s\n", node.CreationTimestamp)
@@ -50,16 +52,27 @@ func main() {
 	fmt.Printf("Annotations: %v\n", node.Annotations)
 	fmt.Printf("Taints: %v\n", node.Spec.Taints)
 	fmt.Printf("Conditions: %v\n", node.Status.Conditions)
+	*/
 
-	client := openai.NewClient("your token")
+	openai_key := os.Getenv("OPEN_AI_API_KEY")
+	if openai_key == "" {
+		fmt.Println("OPEN_AI_API_KEY is not set")
+		return
+	}
+
+	client := openai.NewClient(openai_key)
 	resp, err := client.CreateChatCompletion(
 		context.Background(),
 		openai.ChatCompletionRequest{
 			Model: openai.GPT3Dot5Turbo,
 			Messages: []openai.ChatCompletionMessage{
 				{
+					Role:    openai.ChatMessageRoleSystem,
+					Content: "You are a skilled Kubernetes administrator. Your task is to provide concise summaries of Kubernetes resources based on their descriptions. Focus on extracting and highlighting critical information such as status, configuration details, resource allocations, events, and any warnings or anomalies. Your summary should distill the essential details into a brief overview, offering quick insights into the resource's current state, usage, and health.",
+				},
+				{
 					Role:    openai.ChatMessageRoleUser,
-					Content: "Hello!",
+					Content: fmt.Sprintf("I need a summary of this Kubernetes resource. Please highlight the key aspects like status, resource usage, and any critical events or warnings that need attention. Here's the output of the `kubectl describe` command: %v", node.Status.Conditions),
 				},
 			},
 		},
