@@ -4,14 +4,14 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/kimagliardi/kube-explain/pkg/genai"
+	"github.com/kimagliardi/kube-explain/pkg/k8s"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"kimagliardi.github.com/kube-explain/pkg/genai"
-	"kimagliardi.github.com/kube-explain/pkg/k8s"
 )
 
 func main() {
 
-	// Create the clientset
 	clientset, err := k8s.NewCLientSet()
 	if err != nil {
 		panic(err.Error())
@@ -27,17 +27,18 @@ func main() {
 	}
 
 	//Print the Node details
-	fmt.Printf("Name: %s\n", node.Name)
+	/*fmt.Printf("Name: %s\n", node.Name)
 	fmt.Printf("UID: %s\n", node.UID)
 	fmt.Printf("CreationTimestamp: %s\n", node.CreationTimestamp)
 	fmt.Printf("Labels: %v\n", node.Labels)
 	fmt.Printf("Annotations: %v\n", node.Annotations)
 	fmt.Printf("Taints: %v\n", node.Spec.Taints)
 	fmt.Printf("Conditions: %v\n", node.Status.Conditions)
-	fmt.Printf("Node: %v\n", node)
+		fmt.Printf("Node: %v\n", node)*/
+	nodeInfo := fmt.Sprintf("Limits: %v\n", node)
 
 	client := genai.NewClient()
-	resp, err := client.SummarizeWithOpenAI(context.Background(), node.Status.Conditions[0].Message)
+	resp, err := client.Summarize(nodeInfo)
 
 	if err != nil {
 		fmt.Printf("ChatCompletion error: %v\n", err)
@@ -45,4 +46,5 @@ func main() {
 	}
 
 	fmt.Println(resp.Choices[0].Message.Content)
+
 }
